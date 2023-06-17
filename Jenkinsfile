@@ -1,12 +1,22 @@
 pipeline {
   agent any
+  parameters { string(name: 'JSON', defaultValue: 'staging', description: '') }
   stages {
-     stage ('Build') { 
-      steps  {
-       echo 'Running build automation'
-       sh './gradlew build --no-daemon'
-       archiveArtifacts artifacts: 'dist/trainSchedule.zip'
+      stage ("Build") {
+        steps {
+         script{
+            def jsonObj = readJSON text: "${params.JSON}"
+            echo "Running build Automation"
+        } }
       }
-    }
   }
 }
+
+
+
+
+
+
+
+
+       
